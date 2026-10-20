@@ -131,13 +131,6 @@ button{
         border-radius: 1vw;
         margin: 3vh 0px 0px 0px;
     }
-    #categorias{
-        margin: 5vw 5vw 5vw 5vw;
-        border-radius: 2vw;
-        height: 25vw;
-        padding: 5vw 5vw;
-        font-size: 5vw;
-    }
 
     textarea{
         width: 35vw;
@@ -217,5 +210,16 @@ button{
         font-size: 2vw;
         color: black;
         margin: 0vw 0vw 3vw 0vw;
+    }
+
+    #categorias{
+        background-color: white;
+        margin: 3vh auto 0vw auto;
+        border-radius: 2vw;
+        font-family: monospace;
+        height: 15vw;
+        padding: 2vw 2vw 2vw 2vw;
+        font-size: 3vw;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 }
