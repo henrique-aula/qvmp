@@ -1,6 +1,6 @@
 
 const canva = document.getElementById("canva");
-const width = 1200;
+const width = 1500;
 const height = 750;
 const cl = canva.offsetLeft + canva.clientLeft;
 const ct = canva.offsetTop + canva.clientTop;
@@ -26,80 +26,77 @@ function update_portao_pin_coords(portao){
     let offset = 0;
     if (inputs.length == 0) {}
     else if (inputs.length == 1) {
-        outs.push({
-            "x": px-pin_size,
-            "y": py+pin_size,
-        })
-        return outs
+        inputs[0]["x"] = px-pin_size;
+        inputs[0]["y"] = py+pin_size;
     }
     else{
         for (let i = 0; i < inputs.length; i++){
-            outs.push({
-                "x": px-pin_size,
-                "y": py+offset,
-            })
+            inputs[i]["x"] = px-pin_size;
+            inputs[i]["y"] = py+offset;
             offset += pin_size*2;
         }
     }
-
 
     offset = 0;
     if (outputs.length == 0) {}
     else if (outputs.length == 1) {
-        outs.push({
-            "x": px+box_size,
-            "y": py+pin_size,
-        })
+        outputs[0]["x"] = px+box_size;
+        outputs[0]["y"] = py+pin_size;
     }
     else{
         for (let i = 0; i < outputs.length; i++){
-            outs.push({
-                "x": px+box_size,
-                "y": py+offset,
-            })
-            offset += pin_size*2;
+            outputs[i]["x"] = px+box_size;
+            outputs[i]["y"] = py+offset;
+            offset += pin_size*2;;
         }
     }
 
 }
 
-
-function draw_wire(x, y, dx, dy){
+function draw_wire(x, y, dx, dy, active){
     ctx.beginPath();
     ctx.moveTo(x, y)
     ctx.lineTo(dx, dy)
-    ctx.strokeStyle = "#f6a223"
+
+    if (active) ctx.strokeStyle = "#90f5fc"
+    else ctx.strokeStyle = "#b6b6b6"
+    
     ctx.lineWidth = 5
     ctx.stroke()
 }
+
 function draw_portao(portao){
+    //portao em si
     ctx.fillStyle = "#000000";
+    if (portao["type"] == "luz"){
+        if (portao["in"][0]["status"]) ctx.fillStyle = "#ffd91d";
+    }
+
     ctx.fillRect(portao["x"], portao["y"], box_size, box_size);
-
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    cx = portao["x"] + (box_size / 2);
+    cy = portao["y"] + (box_size / 2);
+    ctx.fillText(portao["type"].toUpperCase(), cx, cy);
     ctx.fillStyle = "#676767";
-    inputs = get_inputs_coords(portao);
-    for (let i = 0; i < inputs.length; i++){
-        ctx.fillRect(inputs[i]["x"], inputs[i]["y"], pin_size, pin_size);
-    }
-    outputs = get_output_coords(portao);
-    for (let i = 0; i < outputs.length; i++){
-        ctx.fillRect(outputs[i]["x"], outputs[i]["y"], pin_size, pin_size);
 
+
+    update_portao_pin_coords(portao);
+    for (let i = 0; i < portao["in"].length; i++){
+        ctx.fillRect(portao["in"][i]["x"], portao["in"][i]["y"], pin_size, pin_size);
+    }
+    for (let i = 0; i < portao["out"].length; i++){
+        ctx.fillRect(portao["out"][i]["x"], portao["out"][i]["y"], pin_size, pin_size);
     }
 
-    
-    for (let i = 0; i < inputs.length; i++){
-        let p = portao["in"][i];
+    //fios
+    pinos = [...inputs, ...outputs]
+    for (let i = 0; i < pinos.length; i++){
+        let p = pinos[i];
         if (p != pino_conectando) continue;
-        x = inputs[i]["x"] + pin_size/2 
-        y = inputs[i]["y"] + pin_size/2
-        draw_wire(x,y,mouse_x,mouse_y);
-    }
-    for (let i = 0; i < outputs.length; i++){
-        let p = portao["out"][i];
-        if (p != pino_conectando) continue;
-        x = outputs[i]["x"] + pin_size/2 
-        y = outputs[i]["y"] + pin_size/2
+        x = p["x"] + pin_size/2 
+        y = p["y"] + pin_size/2
         draw_wire(x,y,mouse_x,mouse_y);
     }
 }
@@ -107,37 +104,80 @@ function draw_portao(portao){
 
 
 function gloop(){
-    ctx.reset();
-    for (let i = 0; i < portoes.length; i++){
-        draw_portao(portoes[i]);
-    }
-
 
     for (let i = 0; i < portoes.length; i++){
         portao = portoes[i];
-        inputs = get_inputs_coords(portao);
-        outputs = get_output_coords(portao);
+        inp = portao["in"]
 
-        for (let i = 0; i < inputs.length; i++){
-            let p = portao["in"][i];
-            if (p != pino_conectando) continue;
-            x = inputs[i]["x"] + pin_size/2 
-            y = inputs[i]["y"] + pin_size/2
-            for (let j = 0; j < )
-
-            draw_wire(x,y,mouse_x,mouse_y);
-        }
-        for (let i = 0; i < outputs.length; i++){
-            let p = portao["out"][i];
-            if (p != pino_conectando) continue;
-            x = outputs[i]["x"] + pin_size/2 
-            y = outputs[i]["y"] + pin_size/2
-            draw_wire(x,y,mouse_x,mouse_y);
+        for (let j = 0; j < inp.length; j++){
+            inp[j]["status"] = false;
         }
     }
 
+    for (let i = 0; i < portoes.length; i++){
+        portao = portoes[i];
+        out = portao["out"]
+        if (out.length <= 0) continue;
+
+        for (let j = 0; j < out[0]["conn"].length; j++){
+            if (!out[0]["conn"][j]["status"]){
+                out[0]["conn"][j]["status"] = out[0]["status"] 
+            }
+        }
+    }
+
+    for (let i = 0; i < portoes.length; i++){
+        portao = portoes[i];
+        inp = portao["in"]
+        out = portao["out"]
+
+        switch (portao["type"]) {
+            case "and":
+                out[0]["status"] = inp[0]["status"] && inp[1]["status"]
+                break;
+            case "or":
+                out[0]["status"] = inp[0]["status"] || inp[1]["status"]
+                break;
+            case "not":
+                out[0]["status"] = !inp[0]["status"]
+                break;
+            case "xor":
+                out[0]["status"] = !!inp[0]["status"] !== !!inp[1]["status"]
+                break;
+            default:
+                break;
+        }
+
+
+
+    }
+
+    //DESENHAR TUDO
+    ctx.reset();
+    //desenhar portao
+    for (let i = 0; i < portoes.length; i++){
+        draw_portao(portoes[i]);
+    }
+    //desenhar fio
+    for (let i = 0; i < portoes.length; i++){
+        portao = portoes[i];
+        pinos = [...portao["in"], ...portao["out"]];
+
+        for (let i = 0; i < pinos.length; i++){
+            let p = pinos[i];
+
+            for (let j = 0; j < p["conn"].length; j++){
+                x = p["x"] + pin_size/2 
+                y = p["y"] + pin_size/2
+                dx = p["conn"][j]["x"] + pin_size/2 
+                dy = p["conn"][j]["y"] + pin_size/2 
+
+                draw_wire(x,y,dx,dy, p["status"]);
+            }
+        }
+    }
 }
-setInterval(gloop, 10);
+setInterval(gloop, 0);
 
 
 
@@ -146,8 +186,8 @@ canva.addEventListener("mousemove", e => {
     mouse_y = e.pageY - ct;
     if (mouse_held){
         if (portao_carregando){
-            portao_carregando["x"] = mouse_x;
-            portao_carregando["y"] = mouse_y;
+            portao_carregando["x"] = mouse_x-box_size/2;
+            portao_carregando["y"] = mouse_y-box_size/2 ;
         }
 
     }
@@ -159,24 +199,21 @@ canva.addEventListener("mousedown", e => {
         p = portoes[i];
 
         if (mouse_x >= p["x"] && mouse_x <= p["x"]+box_size && mouse_y >= p["y"] && mouse_y <= p["y"]+box_size){
+            if (p["type"] == "botao"){
+                p["out"][0]["status"] = !p["out"][0]["status"]
+            }
+
             portao_carregando = p;
             break;
         }
 
-        inputs = get_inputs_coords(p);
-        for (let j = 0; j < inputs.length; j++){
-            d = inputs[j];
-            if (mouse_x >= d["x"] && mouse_x <= d["x"]+pin_size && mouse_y >= d["y"] && mouse_y <= d["y"]+pin_size){
-                pino_conectando = p["in"][j];
-                break;
-            }
-        }
+        update_portao_pin_coords(p);
+        pinos = [...p["in"], ...p["out"]]
 
-        outputs = get_output_coords(p);
-        for (let j = 0; j < outputs.length; j++){
-            d = outputs[j];
+        for (let j = 0; j < pinos.length; j++){
+            d = pinos[j];
             if (mouse_x >= d["x"] && mouse_x <= d["x"]+pin_size && mouse_y >= d["y"] && mouse_y <= d["y"]+pin_size){
-                pino_conectando = p["out"][j];
+                pino_conectando = d;
                 break;
             }
         }
@@ -189,93 +226,144 @@ canva.addEventListener("mouseup", e => {
     if (pino_conectando){
         for (let i = 0; i < portoes.length; i++){
             p = portoes[i];
-            inputs = get_inputs_coords(p);
-            outputs = get_output_coords(p);
+            update_portao_pin_coords(p);
+            pinos = [...p["in"], ...p["out"]]
 
-            for (let j = 0; j < inputs.length; j++){
-                if (p["in"][j] == pino_conectando) continue;
-                d = inputs[j];
+            for (let j = 0; j < pinos.length; j++){
+                d = pinos[j];
+                if (d == pino_conectando) continue;
+                if (pino_conectando["type"] == d["type"]) continue;
                 if (!(mouse_x >= d["x"] && mouse_x <= d["x"]+pin_size && mouse_y >= d["y"] && mouse_y <= d["y"]+pin_size)) continue;
 
-                if (!pino_conectando["conn"].includes(p["in"][j])) pino_conectando["conn"].push(p["in"][j])
-                console.log(pino_conectando)
+                if (pino_conectando["type"] == ["in"]){
+                    if (!d["conn"].includes(pino_conectando)) d["conn"].push(pino_conectando)
+                }
+                else{
+                    if (!pino_conectando["conn"].includes(d)) pino_conectando["conn"].push(d)
+                }
                 
                 break;
             }
-            for (let j = 0; j < outputs.length; j++){
-                if (p["out"][j] == pino_conectando) continue;
-                d = outputs[j];
-                if (!(mouse_x >= d["x"] && mouse_x <= d["x"]+pin_size && mouse_y >= d["y"] && mouse_y <= d["y"]+pin_size)) continue;
-
-                if (!pino_conectando["conn"].includes(p["out"][j])) pino_conectando["conn"].push(p["out"][j])
-                console.log(pino_conectando);
-                break;
-            }
         }
-
     }
 
     portao_carregando = null;
     pino_conectando = null;
 });
 
+
+function push_onezero(type){
+    portoes.push({
+        "type": type,
+        "x": mouse_x,
+        "y": mouse_y,
+        "in": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "in"
+            },
+        ],
+        "out": [
+        ]
+    })
+}
+function push_zeroone(type){
+    portoes.push({
+        "type": type,
+        "x": mouse_x,
+        "y": mouse_y,
+        "in": [
+        ],
+        "out": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "out"
+            },
+        ]
+    })
+}
+function push_twoone(type){
+    portoes.push({
+        "type": type,
+        "x": mouse_x,
+        "y": mouse_y,
+        "in": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "in"
+            },
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "in"
+            },
+        ],
+        "out": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "out"
+
+            },
+        ]
+    })
+}
+function push_oneone(type){
+    portoes.push({
+        "type": type,
+        "x": mouse_x,
+        "y": mouse_y,
+        "in": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "in"
+
+            },
+        ],
+        "out": [
+            {
+                "x": 0,
+                "y": 0,
+                "status": false,
+                "conn": [],
+                "type": "out"
+            },
+        ]
+    })
+}   
+
 var kp = {};
 window.addEventListener("keydown", (e) => {
     kp[e.key] = true;
 
-    if (kp["a"]){
-        portoes.push({
-            "tipo": "and",
-            "x": mouse_x,
-            "y": mouse_y,
-            "in": [
-                {
-                    "x": 0,
-                    "y": 0,
-                    "status": false,
-                    "conn": []
-                },
-                {
-                    "x": 0,
-                    "y": 0,
-                    "status": false,
-                    "conn": []
-                },
-            ],
-            "out": [
-                {
-                    "x": 0,
-                    "y": 0,
-                    "status": false,
-                    "conn": []
-                },
-            ]
-        })
-    }
-    if (kp["n"]){
-        portoes.push({
-            "tipo": "and",
-            "x": mouse_x,
-            "y": mouse_y,
-            "in": [
-                {
-                    "x": 0,
-                    "y": 0,
-                    "status": false,
-                    "conn": []
-                },
-            ],
-            "out": [
-                {
-                    "x": 0,
-                    "y": 0,
-                    "status": true,
-                    "conn": []
-                },
-            ]
-        })
-    }
-    if(kp["r"]){
+    if (kp["a"]) push_twoone("and");
+    if (kp["x"]) push_twoone("xor");
+    if (kp["o"]) push_twoone("or");
+    if (kp["n"]) push_oneone("not");
+    if (kp["b"]) push_zeroone("botao");
+    if (kp["l"]) push_onezero("luz");
+
+        
+        
+    
+    if(kp["r"] && kp["u"]){
+        portoes = []
     }
 });
 window.addEventListener("keyup", (e) => {
