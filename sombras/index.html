@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sombras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class=a>
+        <div class="box" id="box"></div>
+
+        <div class=b>
+            <div class=c>
+                <label for="slider">offset X: <span id="value_offset_x">0</span></label>
+                <input type="range" id="slide_offset_x" data-target="value_offset_x" data-var="x" min="-50" max="50" value="0">
+            </div>
+            <div class=c>
+                <label for="slider">offset Y: <span id="value_offset_y">0</span></label>
+                <input type="range" id="slide_offset_y" data-target="value_offset_y" data-var="y" min="-50" max="50" value="0">
+            </div>
+        </div>
+        <div class=b>
+            <div class=c>
+                <label for="slider">blur: <span id="value_blur">0</span></label>
+                <input type="range" id="slide_blur" data-target="value_blur" data-var="blur" min="0" max="200" value="12">
+            </div>
+            <div class=c>
+                <label for="slider">spread: <span id="value_spread">0</span></label>
+                <input type="range" id="slide_spread" data-target="value_spread" data-var="spread" min="0" max="200" value="0">
+            </div>
+        </div>
+        <div class=b>
+            <button id="random">Aleatorio</button>
+            <button id="inset">Inset</button>
+        </div>
+        <div class=b>
+            <textarea name="resultado" id="resultado">SCRIPT</textarea>
+        </div>
+        
+
+
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
