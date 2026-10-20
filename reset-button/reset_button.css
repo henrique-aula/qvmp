@@ -1,0 +1,82 @@
+body{
+    background-color: rgb(231, 231, 231);
+}
+#corpo{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    font-family: monospace;
+}
+#record{
+    font-size: 30px;
+}
+#main{
+    width: 175px;
+    height: 175px;
+    font-size: 60px;
+    font-family: monospace;
+    border-radius: 50%;
+    margin-top: -13px;
+    position: absolute;
+    background-color: rgb(226, 56, 56);
+    border: none;
+    color: rgb(102, 31, 31);
+}
+.clicado{
+    animation: clicar 170ms;
+    animation-fill-mode: forwards;
+}
+.solto{
+    animation: soltar 130ms;
+    animation-fill-mode: forwards;
+}
+@keyframes clicar{
+    from{
+        margin-top: -13px;
+        background-color: rgb(226, 56, 56);
+    }
+    to{
+        margin-top: 0px;
+        background-color: rgb(206, 58, 58);
+    }
+}
+@keyframes soltar{
+    from{
+        margin-top: 0px;
+        background-color: rgb(206, 58, 58);
+    }
+    to{
+        margin-top: -13px;
+        background-color: rgb(226, 56, 56);
+    }
+}
+#button-bot{
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    background-color: rgb(129, 42, 42);
+}
+#button-top{
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: -20px;
+    z-index: 1;
+}
+#principal{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#record{
+    width: 200px;
+    height: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 5vh;
+}
