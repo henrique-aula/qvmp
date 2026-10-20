@@ -1,8 +1,8 @@
 canvas = document.getElementById("draw");
 const ctx = canvas.getContext("2d");
 
-const gravidade = 0
-const bounce_loss = 0.80
+let gravidade = 0
+let bounce_loss = 0.80
 
 var bola_radius = 30;
 var bolas = [];
@@ -156,10 +156,30 @@ function gloop(){
 }
 setInterval(gloop, 0);
 
-
-
-
 var kp = {};
+
+document.getElementById("gravity").addEventListener("input", (e) => {
+    gravidade = Number(e.target.value);
+    document.getElementById("gravity-value").value = gravidade;
+});
+document.getElementById("bounce").addEventListener("input", (e) => {
+    bounce_loss = Number(e.target.value);
+    document.getElementById("bounce-value").value = bounce_loss.toFixed(2);
+});
+
+document.getElementById("radius").addEventListener("input", (e) => {
+    let novo_r = Number(e.target.value);
+    let scale = novo_r / bola_radius;
+    bola_radius = novo_r;
+    for (let ball of bolas) {
+        ball.s *= scale;
+        ball.mass = ball.s;
+        ball.x = Math.max(-400 + ball.s, Math.min(400 - ball.s, ball.x));
+        ball.y = Math.max(-400 + ball.s, Math.min(400 - ball.s, ball.y));
+    }
+    document.getElementById("radius-value").value = bola_radius;
+});
+
 window.addEventListener("keydown", (e) => {
     kp[e.key] = true;
 

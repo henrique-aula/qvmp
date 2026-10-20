@@ -1,5 +1,37 @@
+ .simulator {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.sliders {
+    display: flex;
+    flex: 0 0 180px;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sliders input {
+    width: 100%;
+    margin: 0 0 12px;
+}
+
 canvas{
+    display: block;
+    width: min(800px, 100%);
+    height: auto;
     border-style: solid;
     border-radius: 5px;
     background-color: gainsboro;
+}
+
+@media (max-width: 700px) {
+    .simulator {
+        flex-direction: column;
+    }
+
+    .sliders {
+        width: min(100%, 280px);
+        flex-basis: auto;
+    }
 }
