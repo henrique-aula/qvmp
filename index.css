@@ -1,0 +1,27 @@
+body{
+    background-color: #F5E4DE;
+    font-family: monospace;
+}
+
+h1{
+    text-align: center;
+    font-size: 80px;
+}
+
+#jogos{
+    margin: 80px 100px 0px 100px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.jogo{
+    width: 500px;
+    height: 300px;
+    border-radius: 20px;
+    background-color: aqua;
+    background-size: cover;
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    margin-bottom: 100px;
+}

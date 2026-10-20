@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who's the imposter</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="esquerda">
+        <textarea inputmode="numeric" placeholder="número de jogadores" id="num"></textarea>
+        <select onchange="comparar()" id="tema">
+            <option value="prof">PROFISSÕES</option>
+            <option value="lugares">LUGARES</option>
+            <option value="animais">ANIMAIS</option>
+            <option value="pessoas">PESSOAS</option>
+            <option value="objetos">OBJETOS</option>
+            <option value="clash">CLASH ROYALE</option>
+            <option value="poke">POKEMON</option>
+            <option value="mine">MINECRAFT (HARDCORE)</option>
+            <option value="mine2">MINECRAFT (EASY)</option>
+            <option value="personagens">PERSONAGENS</option>
+            <option value="custom">PERSONALIZADO</option>
+        </select>
+
+        <textarea hidden placeholder="Item 1&#10;Item 2&#10;Item 3&#10;..." id="custom"></textarea>
+
+        <div id="categorias" hidden>
+            <input type="checkbox" id="herois">
+            <label>herois</label><br>
+            <input type="checkbox" id="desenhos">
+            <label>desenhos</label><br>
+            <input type="checkbox" id="filmes">
+            <label>filmes</label><br>
+            <input type="checkbox" id="animes">
+            <label>animes</label><br>
+        </div>
+
+        <button onclick="comecar()">JOGAR</button>
+
+    </div>
+    
+    <div id="direita">
+        <div id="jogo" class="jogo"></div>
+
+        <div class="resultado">
+            <div id="cima"><h1 id="result"></h1></div>
+            <div id="baixo"><button onclick="ocultar()">ocultar</button></div>
+        </div>
+    </div>
+
+    <script src="temas/animais.js"></script>
+    <script src="temas/clash.js"></script>
+    <script src="temas/lugares.js"></script>
+    <script src="temas/mine.js"></script>
+    <script src="temas/mine2.js"></script>
+    <script src="temas/objetos.js"></script>
+    <script src="temas/pessoas.js"></script>
+    <script src="temas/prof.js"></script>
+    <script src="temas/pokemon.js"></script>
+    <script src="temas/personagens/desenhos.js"></script>
+    <script src="temas/personagens/herois.js"></script>
+    <script src="temas/personagens/filmes.js"></script>
+    <script src="temas/personagens/animes.js"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>

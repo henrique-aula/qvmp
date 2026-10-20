@@ -1,0 +1,221 @@
+body{
+    background-color: grey;
+    display:grid;
+}
+
+textarea{
+    resize: none;
+    margin: 5vw 5vw 5vw 5vw;    
+    text-align: center;
+    padding-top: 4vw;
+    border-radius: 2vw;
+    border: none;
+    font-size: 5vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;   
+}
+
+.resultado{
+    background-color: rgb(70, 70, 70);
+    margin: 5vw 5vw 5vw 5vw;
+    display: inline;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    padding: 5vw 5vw 2vw 5vw;
+    border-radius: 2vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.resultado button{
+    font-family: monospace;
+    background-color: rgb(70, 70, 70);
+    border: none;
+    font-size: 5vw;
+    color: grey;
+    margin: 0px;
+    box-shadow: none;
+}
+
+.resultado h1{
+    padding: -20vw 0vw 5vw -5vw;
+    text-align: center;
+    font-size: 5vw;
+}
+
+#jogo button{
+    width: 15vw;
+    height: 15vw;
+    border-radius: 2vw;
+    border: none;
+    font-family: monospace;
+    font-size: 5vw;
+    color: black;
+    margin: 0vw 0vw 3vw 0vw;
+}
+
+#custom{
+    height: 20vh;
+    text-align: justify;
+    padding: 5vw 5vw;
+}
+
+h1{
+    font-family: monospace;
+}
+
+#jogo{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 5vw 5vw 5vw 5vw;
+}
+
+select{
+    margin: 5vw 5vw 5vw 5vw;
+    height: 15vw;
+    text-align: center;
+    text-align-last: center;
+    font-family: monospace;
+    font-size: 5vw;
+    border-radius: 2vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: black;
+}
+
+button{
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: 5vw 5vw 5vw 5vw;
+    height: 15vw;
+    text-align: center;
+    font-family: monospace;
+    font-size: 5vw;
+    border-radius: 2vw;
+    border: none;
+}
+
+#categorias{
+    background-color: white;
+    margin: 5vw 5vw 5vw 5vw;
+    border-radius: 2vw;
+    font-family: monospace;
+    height: 25vw;
+    padding: 5vw 5vw;
+    font-size: 5vw;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+#esquerda{
+    display: grid;
+}
+#direita{
+    display: grid;
+}
+
+@media (width = 100vmax) {
+    body {
+        display: flex;
+    }
+
+    button{
+        width: 35vw;
+        height: 15vh;
+        font-size: 3rem;
+        border-radius: 1vw;
+        margin: 3vh 0px 0px 0px;
+    }
+    select{
+        width: 35vw;
+        height: 15vh;
+        font-size: 3rem;
+        border-radius: 1vw;
+        margin: 3vh 0px 0px 0px;
+    }
+    #categorias{
+        margin: 5vw 5vw 5vw 5vw;
+        border-radius: 2vw;
+        height: 25vw;
+        padding: 5vw 5vw;
+        font-size: 5vw;
+    }
+
+    textarea{
+        width: 35vw;
+        height: 11vh;
+        font-size: 3vw;
+        border-radius: 1vw;
+        padding-top: 4vh;
+        margin: 0px;
+    }
+    #esquerda{
+        margin-top: 10vh;
+        width: 50%;
+        justify-items: center;
+    }
+    #direita{
+        width: 50%;
+        justify-items: center;
+    }
+    .resultado{
+        height: 350px;
+        width: 600px;
+        background-color: rgb(70, 70, 70);
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        justify-items: center;
+        align-items: center;
+        padding: 0vw;
+        border-radius: 2vw;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .resultado button{
+        font-family: monospace;
+        border: none;
+        font-size: 3vw;
+        color: grey;
+        margin: 0px;
+        box-shadow: none;
+        text-align: center;
+        width: 100%;
+        vertical-align: bottom;
+    }
+
+    #cima{
+        display: flex ;
+        height: 100%;
+        align-items: flex-end;
+    }
+
+    .resultado h1{
+        padding: 0vw;
+        text-align: center;
+        font-size: 3vw;
+    }
+    #custom{
+        height: 20vh;
+        width: 31vw;
+        text-align: justify;
+        padding: 2vw;
+        font-size: 2vw;
+        margin-top: 3vh;
+    }
+    #jogo{
+        display: flex;
+        width: 75%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 5vw     ;
+    }
+    #jogo button{
+        width: 5vw;
+        height: 5vw;
+        border-radius: 1vw;
+        border: none;
+        font-family: monospace;
+        font-size: 2vw;
+        color: black;
+        margin: 0vw 0vw 3vw 0vw;
+    }
+}
