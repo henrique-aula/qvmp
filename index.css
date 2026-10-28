@@ -1,11 +1,21 @@
 body{
     background-color: #F5E4DE;
     font-family: monospace;
+    overflow-x: hidden;
 }
 
 h1{
+    position: relative;
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
     text-align: center;
     font-size: 80px;
+    white-space: nowrap;
+}
+
+h1::after{
+    content: " QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP QVMP";
 }
 
 #jogos{
